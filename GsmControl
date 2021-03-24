@@ -1,0 +1,23 @@
+public string gsmNo(string no)
+        {
+            try
+            {
+                no = no.Replace(" ", "");
+                if (no.Substring(0, 1) == "0")
+                {
+                    no = no.Substring(1, no.Length - 1);
+                }
+                if (no.Length == 10 && no.Substring(0, 1) == "5")
+                {
+                    return no;
+                }
+                else
+                {
+                    return "";
+                }
+            }
+            catch
+            {
+                return "";
+            }  
+        }
