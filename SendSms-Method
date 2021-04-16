@@ -1,0 +1,27 @@
+public static bool SendVerifySMS(string gsmNo, string nguid, string sitePath)
+        {
+            if (HttpContext.Current.Request.Cookies["TurkcellToken"] != null)
+            {
+                var verifyUrl = sitePath + "/PayLink?nguid=" + nguid;
+                var link = HttpContext.Current.Request.Url.ToString().Replace(HttpContext.Current.Request.Url.PathAndQuery, verifyUrl);
+                var client = new RestClient("https://mesajussu.turkcell.com.tr/api/api/integration/v1/sms/campaign/create/json");
+                client.Timeout = -1;
+                var request = new RestRequest(Method.POST);
+                request.AddHeader("Content-Type", "application/json");
+                request.AddHeader("token", HttpContext.Current.Request.Cookies["TurkcellToken"].Value.ToString());
+                request.AddParameter("application/json", "{\r\n\"messageText\": \"Ödeme için " + verifyUrl + " linkini tıklayınız\",\r\n\"sender\": \"Test\",\r\n\"campaignName\": \"SumerGida\",\r\n\"etkFlag\": true,\r\n\"receivers\": [\r\n" + gsmNo + "\r\n]\r\n}\r\n", ParameterType.RequestBody);
+                IRestResponse response = client.Execute(request);
+                Console.WriteLine(response.Content);
+                dynamic stuff1 = Newtonsoft.Json.JsonConvert.DeserializeObject(response.Content);
+                dynamic statusCode = stuff1.responseCode;
+                if (statusCode.ToString() == "200")
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else { return false; }        
+        }
