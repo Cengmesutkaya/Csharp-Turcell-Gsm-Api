@@ -4,7 +4,7 @@ if (Request.Cookies["TurkcellToken"] == null)
                         client.Timeout = -1;
                         var request = new RestRequest(Method.POST);
                         request.AddHeader("Content-Type", "application/json");
-                        request.AddParameter("application/json", "{\r\n\"username\": \"5306644456\",\r\n\"password\": \"Omer2012\"\r\n}", ParameterType.RequestBody);
+                        request.AddParameter("application/json", "{\r\n\"username\": \"GSMNumber\",\r\n\"password\": \"Password\"\r\n}", ParameterType.RequestBody);
                         IRestResponse response = client.Execute(request);
                         Console.WriteLine(response.Content);
                         dynamic stuff1 = Newtonsoft.Json.JsonConvert.DeserializeObject(response.Content);
