@@ -1,0 +1,15 @@
+if (Request.Cookies["TurkcellToken"] == null)
+                    { 
+                        var client = new RestClient("https://mesajussu.turkcell.com.tr/api/api/integration/v1/login");
+                        client.Timeout = -1;
+                        var request = new RestRequest(Method.POST);
+                        request.AddHeader("Content-Type", "application/json");
+                        request.AddParameter("application/json", "{\r\n\"username\": \"5306644456\",\r\n\"password\": \"Omer2012\"\r\n}", ParameterType.RequestBody);
+                        IRestResponse response = client.Execute(request);
+                        Console.WriteLine(response.Content);
+                        dynamic stuff1 = Newtonsoft.Json.JsonConvert.DeserializeObject(response.Content);
+                        dynamic token = stuff1.token;
+                        System.Web.HttpCookie cookieSinif = new System.Web.HttpCookie("TurkcellToken", token.ToString());
+                        cookieSinif.Expires = DateTime.Now.AddDays(1);
+                        Response.Cookies.Add(cookieSinif);
+                    }
