@@ -1,5 +1,5 @@
-public static bool SendVerifySMS(string gsmNo, string nguid, string sitePath)
-        {
+          public static bool SendVerifySMS(string gsmNo, string nguid, string sitePath)
+          {
             if (HttpContext.Current.Request.Cookies["TurkcellToken"] != null)
             {
                 var verifyUrl = sitePath + "/PayLink?nguid=" + nguid;
