@@ -1,4 +1,4 @@
-if (Request.Cookies["TurkcellToken"] == null)
+                  if (Request.Cookies["TurkcellToken"] == null)
                     { 
                         var client = new RestClient("https://mesajussu.turkcell.com.tr/api/api/integration/v1/login");
                         client.Timeout = -1;
